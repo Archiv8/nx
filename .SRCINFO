@@ -1,0 +1,15 @@
+pkgbase = nx
+	pkgdesc = A next generation build system with monorepo support and powerful integrations.
+	pkgver = 14.5.10
+	pkgrel = 1
+	url = https://blog.nrwl.io/nx/home
+	arch = any
+	license = MIT
+	makedepends = jq
+	makedepends = npm
+	depends = nodejs
+	noextract = nx-14.5.10.tgz
+	source = https://registry.npmjs.org/nx/-/nx-14.5.10.tgz
+	sha512sums = 76a895fb3637da4f7c99f2854e0890c9877d1d8666075ce8263ea0627884baacece822a9f194a97910da55047147ac0432f5bd3124c0f64060f2c27bf16fcd66
+
+pkgname = nx
