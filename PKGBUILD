@@ -16,8 +16,8 @@
 
 # pkgbase=
 pkgname="nx"
-pkgver=14.5.10 
-pkgrel=1
+pkgver=15.0.4
+pkgrel=2
 # epoch=
 pkgdesc="A next generation build system with monorepo support and powerful integrations."
 arch=(
@@ -29,6 +29,7 @@ license=(
 )
 # groups=()
 depends=(
+  "musl"
   "nodejs"
 )
 # optdepends=()
@@ -59,7 +60,7 @@ noextract=(
 )
 # validpgpkeys=()
 sha512sums=(
-  "76a895fb3637da4f7c99f2854e0890c9877d1d8666075ce8263ea0627884baacece822a9f194a97910da55047147ac0432f5bd3124c0f64060f2c27bf16fcd66"
+  "b420a2549802897fd1db394bef7750b18e3d03147f700d1d1d7efae0abcb588bc1d263bc65bed4580c1bf2c7486e8a770eab460a8a514ec01d3817195db7bff4"
 )
 
 # prepare () {}
@@ -93,15 +94,15 @@ package() {
   printf "\e[1;32m==>\e[0m \e[38;5;248mRemoving references to \$srcdir \e[0m\n"
   local tmppackage="$(mktemp)"
   local pkgjson="$pkgdir/usr/lib/node_modules/${pkgname}/package.json"
-  jq '.|=with_entries(select(.key|test("_.+")|not))' "$pkgjson" > "$tmppackage"
+  jq '.|=with_entries(select(.key|test("_.+")|not))' "$pkgjson" >"$tmppackage"
   mv "$tmppackage" "$pkgjson"
   chmod 644 "$pkgjson"
 
   rm -rf "$pkgdir/usr/lib/node_modules/root"
 
   # Install license
-  # install -dm755 "${pkgdir}/usr/share/licenses/${pkgname}"
-  # ln -s ../../../lib/node_modules/eslint/LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+  install -dm755 "${pkgdir}/usr/share/licenses/${pkgname}"
+  ln -s "../../../lib/node_modules/${pkgname}/LICENSE" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 
   # Create Archiv8 documentation folder
   #  install -dvm 755 "$pkgdir/usr/share/doc/$pkgname/packaging/"
